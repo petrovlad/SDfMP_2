@@ -10,11 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ShowKittenActivity"></activity>
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.activity.ShowPhotoFromGalleryActivity"></activity>
+        <activity android:name=".ui.activity.ShowGalleryActivity" />
+        <activity android:name=".ui.activity.ShowKittenActivity" />
+        <activity android:name=".ui.activity.SignInActivity" />
+        <activity android:name=".ui.activity.MainActivity" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.activity.SignUpActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -25,7 +25,6 @@
         android:id="@+id/btnLogOut"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="onClickLogOut"
         android:text="@string/button_log_out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,16 +47,29 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
+        android:id="@+id/btnUploadVideo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/button_upload_video"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnUploadImage"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/btnUploadImage"
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadImage"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/btnEditAccount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/button_edit_account"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnUploadImage"
+        app:layout_constraintEnd_toEndOf="@+id/btnUploadVideo"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/btnUploadImage"
-        app:layout_constraintTop_toBottomOf="@+id/btnUploadImage"
+        app:layout_constraintStart_toStartOf="@+id/btnUploadVideo"
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadVideo"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -72,4 +84,19 @@
         app:layout_constraintStart_toStartOf="@+id/btnEditAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnEditAccount"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ProgressBar
+        android:id="@+id/pgLoading"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:indeterminateTint="@android:color/holo_blue_bright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnDeleteAccount"
+        app:layout_constraintStart_toStartOf="@+id/btnDeleteAccount"
+        app:layout_constraintTop_toBottomOf="@+id/btnDeleteAccount"
+        app:layout_constraintVertical_bias="0.04000002" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

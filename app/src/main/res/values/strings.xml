@@ -6,6 +6,7 @@
     <string name="first_name_hint">Enter first name</string>
     <string name="second_name_hint">Enter second name</string>
     <string name="tail_length_hint">Enter tail length</string>
+    <string name="user_have_no_photos_hint">This kitten don\'t have any photos yet…</string>
     <string name="button_submit">Submit</string>
     <string name="toast_enter_values">Enter all values</string>
     <string name="enter_password_hint">Enter password</string>
@@ -16,6 +17,7 @@
     <string name="button_log_out">Log out</string>
     <string name="button_show_gallery">Show all photos...</string>
     <string name="button_upload_image">Upload image</string>
+    <string name="button_upload_video">Upload video</string>
     <string name="button_delete_account">Delete account</string>
     <string name="button_edit_account">Edit account</string>
     <string name="go_to_sign_in">Go to sign in screen…</string>
@@ -24,9 +26,9 @@
     <string name="toast_creation_user_failed">Creation of user failed</string>
     <string name="toast_hello">Hello</string>
     <string name="toast_no_photo_selected">No photo selected</string>
-    <string name="toast_photo_uploaded">Photo has been uploaded</string>
-    <string name="toast_photo_not_uploaded">Photo has not been uploaded</string>
-    <string name="toast_unable_load_photos">Unable to load photos</string>
+    <string name="toast_file_uploaded">File has been uploaded</string>
+    <string name="toast_file_not_uploaded">File has not been uploaded</string>
+    <string name="toast_unable_load_data">Permission denied</string>
     <string name="kitten_name">Kitten name</string>
     <string name="kitten_tail_length">Tail length</string>
     <string name="kitten_eyes_color">Eyes color</string>

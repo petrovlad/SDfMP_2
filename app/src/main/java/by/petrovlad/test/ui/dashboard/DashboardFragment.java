@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,8 @@ import java.util.List;
 import by.petrovlad.test.Constants;
 import by.petrovlad.test.Kitten;
 import by.petrovlad.test.R;
-import by.petrovlad.test.ShowKittenActivity;
+import by.petrovlad.test.ui.activity.ShowGalleryActivity;
+import by.petrovlad.test.ui.activity.ShowKittenActivity;
 
 public class DashboardFragment extends Fragment {
 
@@ -82,7 +84,8 @@ public class DashboardFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.w("ShwKittenActivity.init:", error.getMessage());
+                Toast.makeText(getActivity(), R.string.toast_unable_load_data, Toast.LENGTH_LONG).show();
             }
         });
         // set listener for clicking on item of gridview

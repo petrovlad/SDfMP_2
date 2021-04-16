@@ -1,4 +1,4 @@
-package by.petrovlad.test;
+package by.petrovlad.test.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,11 +16,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
+import by.petrovlad.test.Constants;
+import by.petrovlad.test.R;
 import by.petrovlad.test.ui.dashboard.DashboardFragment;
 import by.petrovlad.test.ui.map.MapFragment;
 import by.petrovlad.test.ui.settings.SettingsFragment;
@@ -87,9 +85,4 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new DashboardFragment()).commit();
     }
 
-
-    public void onClickLogOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-    }
 }

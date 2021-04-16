@@ -1,4 +1,4 @@
-package by.petrovlad.test;
+package by.petrovlad.test.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import by.petrovlad.test.Constants;
+import by.petrovlad.test.R;
 
 public class SignInActivity extends AppCompatActivity {
 
