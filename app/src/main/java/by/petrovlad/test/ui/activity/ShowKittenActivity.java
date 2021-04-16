@@ -1,8 +1,5 @@
 package by.petrovlad.test.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -99,12 +103,7 @@ public class ShowKittenActivity extends AppCompatActivity {
                     }
                     String videoUrl = upload.getImageUrl();
 
-                    videoView = findViewById(R.id.videoView);
-                    mediaController = new MediaController(ShowKittenActivity.this);
-                    videoView.setMediaController(mediaController);
-                    videoView.setVideoURI(Uri.parse(videoUrl));
-                    videoView.start();
-
+                    startVideoPlayer(videoUrl);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -114,6 +113,31 @@ public class ShowKittenActivity extends AppCompatActivity {
                 Toast.makeText(ShowKittenActivity.this, R.string.toast_unable_load_data, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void startVideoPlayer(String uri) {
+/*        PlayerView playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter.Builder(getApplication()).build();
+        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
+        SimpleExoPlayer exoPlayer = ExoPlayerFactory.newSimpleInstance(getApplication());
+        Uri videoUri = Uri.parse(uri);
+        DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("video");
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        MediaSource mediaSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);
+
+        playerView.setPlayer(exoPlayer);
+        exoPlayer.prepare(mediaSource);
+        exoPlayer.setPlayWhenReady(false);*/
+
+        PlayerView playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
+        ExoPlayer exoPlayer = new SimpleExoPlayer.Builder(getApplicationContext()).build();
+        playerView.setPlayer(exoPlayer);
+
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(uri));
+        exoPlayer.setMediaItem(mediaItem);
+        exoPlayer.setPlayWhenReady(false);
+        exoPlayer.seekTo(0, 0);
+        exoPlayer.prepare();
     }
 
     private TableRow createRow(String key, String value) {
