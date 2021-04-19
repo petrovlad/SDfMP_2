@@ -1,7 +1,10 @@
 package by.petrovlad.test.ui.settings;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,11 +30,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Locale;
+
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.ui.activity.ChangeLanguageActivity;
+import by.petrovlad.test.ui.activity.EditAccountActivity;
 import by.petrovlad.test.R;
 import by.petrovlad.test.StringGenerator;
 import by.petrovlad.test.Upload;
-import by.petrovlad.test.ui.activity.MainActivity;
+import by.petrovlad.test.ui.activity.SetLocationActivity;
 import by.petrovlad.test.ui.activity.SignUpActivity;
 
 import static android.app.Activity.RESULT_OK;
@@ -41,6 +48,9 @@ public class SettingsFragment extends Fragment {
     private Button btnUploadImage;
     private Button btnUploadVideo;
     private Button btnLogOut;
+    private Button btnEditAccount;
+    private Button btnEditLocation;
+    private Button btnChangeLanguage;
 
     private ProgressBar progressBar;
 
@@ -63,6 +73,15 @@ public class SettingsFragment extends Fragment {
     }
 
     private void init(View view) {
+        btnChangeLanguage = view.findViewById(R.id.btnChangeLanguage);
+        btnChangeLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChangeLanguageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btnUploadImage = view.findViewById(R.id.btnUploadImage);
         btnUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +104,24 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), SignUpActivity.class));
+            }
+        });
+
+        btnEditAccount = view.findViewById(R.id.btnEditAccount);
+        btnEditAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditAccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnEditLocation = view.findViewById(R.id.btnEditLocation);
+        btnEditLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SetLocationActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -172,6 +209,11 @@ public class SettingsFragment extends Fragment {
         } else {
             Toast.makeText(SettingsFragment.this.getActivity(), R.string.toast_no_photo_selected, Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public void showToast(String text) {
+        Toast.makeText(SettingsFragment.this.getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
 }

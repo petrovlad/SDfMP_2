@@ -7,6 +7,20 @@
     tools:context=".ui.activity.SignUpActivity">
 
     <EditText
+        android:id="@+id/edSignUpEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_email_hint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <EditText
         android:id="@+id/edSignUpLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,10 +28,41 @@
         android:hint="@string/enter_login_hint"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/edSignUpEmail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edSignUpEmail"
+        app:layout_constraintTop_toBottomOf="@+id/edSignUpEmail"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/edSignUpColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_eyes_color_hint"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edSignUpHeight"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edSignUpHeight"
+        app:layout_constraintTop_toBottomOf="@+id/edSignUpHeight"
+        app:layout_constraintVertical_bias="0.0
+" />
+
+    <EditText
+        android:id="@+id/edSignUpHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_height_hint"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edSignUpTail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edSignUpTail"
+        app:layout_constraintTop_toBottomOf="@+id/edSignUpTail"
+        app:layout_constraintVertical_bias="0.0
+" />
 
     <EditText
         android:id="@+id/edSignUpPassword"
@@ -27,11 +72,11 @@
         android:hint="@string/enter_password_hint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edSignInLogin"
+        app:layout_constraintEnd_toEndOf="@+id/edSignUpColor"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edSignUpLogin"
-        app:layout_constraintTop_toBottomOf="@+id/edSignUpLogin"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintStart_toStartOf="@+id/edSignUpColor"
+        app:layout_constraintTop_toBottomOf="@+id/edSignUpColor"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -61,16 +106,16 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/edTailLength"
+        android:id="@+id/edSignUpTail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/enter_tail_length_hint"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/edSignUpLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edSignUpLogin"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edSignUpLogin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintTop_toBottomOf="@+id/edSignUpLogin"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

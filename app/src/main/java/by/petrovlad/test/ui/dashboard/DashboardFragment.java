@@ -27,7 +27,6 @@ import java.util.List;
 import by.petrovlad.test.Constants;
 import by.petrovlad.test.Kitten;
 import by.petrovlad.test.R;
-import by.petrovlad.test.ui.activity.ShowGalleryActivity;
 import by.petrovlad.test.ui.activity.ShowKittenActivity;
 
 public class DashboardFragment extends Fragment {
@@ -60,7 +59,7 @@ public class DashboardFragment extends Fragment {
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, names);
         gvKittens.setAdapter(adapter);
         // retrieve from firebase
-        databaseReference = FirebaseDatabase.getInstance().getReference(Constants.KITTEN_ENTITY);
+        databaseReference = FirebaseDatabase.getInstance().getReference(Constants.KITTENS_REFERENCE);
         // set listener for realtime update
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,11 +97,13 @@ public class DashboardFragment extends Fragment {
                 ArrayList<String> headers = new ArrayList<>();
 
                 String nameHeader = getString(R.string.kitten_name);
+                String emailHeader = getString(R.string.kitten_email);
                 String eyesHeader = getString(R.string.kitten_eyes_color);
                 String tailHeader = getString(R.string.kitten_tail_length);
                 String heightHeader = getString(R.string.kitten_height);
 
                 headers.add(nameHeader);
+                headers.add(emailHeader);
                 headers.add(eyesHeader);
                 headers.add(tailHeader);
                 headers.add(heightHeader);
@@ -110,6 +111,7 @@ public class DashboardFragment extends Fragment {
                 intent.putStringArrayListExtra(Constants.KITTEN_HEADERS, headers);
 
                 intent.putExtra(nameHeader, kitten.name);
+                intent.putExtra(emailHeader, kitten.email);
                 intent.putExtra(eyesHeader, kitten.eyesColor);
                 intent.putExtra(tailHeader, kitten.tailLength);
                 intent.putExtra(heightHeader, kitten.height);

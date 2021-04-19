@@ -23,7 +23,7 @@ import by.petrovlad.test.R;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText edSignUpLogin, edSignUpPassword, edTailLength;
+    private EditText edSignUpLogin, edSignUpPassword, edSignUpTail, edSignUpColor, edSignUpEmail, edSignUpHeight;
     private FirebaseDatabase database;
     private FirebaseAuth firebaseAuth;
 
@@ -37,12 +37,15 @@ public class SignUpActivity extends AppCompatActivity {
     private void init() {
         edSignUpLogin = findViewById(R.id.edSignUpLogin);
         edSignUpPassword = findViewById(R.id.edSignUpPassword);
-        edTailLength = findViewById(R.id.edTailLength);
+        edSignUpTail = findViewById(R.id.edSignUpTail);
+        edSignUpColor = findViewById(R.id.edSignUpColor);
+        edSignUpEmail = findViewById(R.id.edSignUpEmail);
+        edSignUpHeight = findViewById(R.id.edSignUpHeight);
 
-        String login = getIntent().getStringExtra(Constants.LOGIN_EXTRA);
+        String email = getIntent().getStringExtra(Constants.EMAIL_EXTRA);
         String password = getIntent().getStringExtra(Constants.PASSWORD_EXTRA);
-        if (login != null && !login.isEmpty()) {
-            edSignUpLogin.setText(login);
+        if (email != null && !email.isEmpty()) {
+            edSignUpEmail.setText(email);
         }
         if (password != null && !password.isEmpty()) {
             edSignUpPassword.setText(password);
@@ -62,17 +65,19 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void onClickSignUp(View view) {
+        String email = edSignUpEmail.getText().toString().trim();
         String login = edSignUpLogin.getText().toString().trim();
+        String color = edSignUpColor.getText().toString().trim();
+        String height = edSignUpHeight.getText().toString().trim();
+        String tailLength = edSignUpTail.getText().toString().trim();
         String password = edSignUpPassword.getText().toString().trim();
-        String tailLength = edTailLength.getText().toString().trim();
 
-        if (login.isEmpty() || password.isEmpty() || tailLength.isEmpty()) {
+        if (email.isEmpty() || color.isEmpty() || height.isEmpty() || login.isEmpty() || password.isEmpty() || tailLength.isEmpty()) {
             Toast.makeText(this, R.string.toast_enter_values, Toast.LENGTH_LONG).show();
             return;
         }
 
-        String finalLogin = login + Constants.UPN_SUFFIX;
-        firebaseAuth.createUserWithEmailAndPassword(finalLogin, password)
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -85,9 +90,9 @@ public class SignUpActivity extends AppCompatActivity {
                             }
 
                             // add entity to Kittens db
-                            database.getReference(Constants.KITTEN_ENTITY)
+                            database.getReference(Constants.KITTENS_REFERENCE)
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(new Kitten(finalLogin, tailLength, "100", tailLength));
+                                    .setValue(new Kitten(login, email, tailLength, height, color));
 
                             goToMainActivity(user.getEmail());
                         } else {
@@ -100,15 +105,15 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onClickGoToSignIn(View view) {
         Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
-        intent.putExtra(Constants.LOGIN_EXTRA, edSignUpLogin.getText().toString().trim());
-        intent.putExtra(Constants.PASSWORD_EXTRA, edSignUpPassword.getText().toString().trim());
+        intent.putExtra(Constants.EMAIL_EXTRA, edSignUpEmail.getText().toString());
+        intent.putExtra(Constants.PASSWORD_EXTRA, edSignUpPassword.getText().toString());
 
         startActivity(intent);
     }
 
-    public void goToMainActivity(String extraLogin) {
+    public void goToMainActivity(String extraEmail) {
         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-        intent.putExtra(Constants.LOGIN_EXTRA, extraLogin);
+        intent.putExtra(Constants.EMAIL_EXTRA, extraEmail);
         startActivity(intent);
     }
 }

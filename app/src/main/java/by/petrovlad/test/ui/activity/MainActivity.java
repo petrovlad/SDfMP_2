@@ -1,21 +1,21 @@
 package by.petrovlad.test.ui.activity;
 
-import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import java.util.Locale;
 
 import by.petrovlad.test.Constants;
 import by.petrovlad.test.R;
@@ -24,6 +24,8 @@ import by.petrovlad.test.ui.map.MapFragment;
 import by.petrovlad.test.ui.settings.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private String currentLanguage;
 
     private EditText edFirstName, edSecondName, edTailLength;
     private Button btnSubmit;
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 /*        // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -49,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        String login = getIntent().getStringExtra(Constants.LOGIN_EXTRA);
-        if (login != null) {
-            Toast.makeText(this, getString(R.string.toast_hello) + ", " + login, Toast.LENGTH_LONG).show();
+        String email = getIntent().getStringExtra(Constants.EMAIL_EXTRA);
+        if (email != null) {
+            Toast.makeText(this, getString(R.string.toast_hello) + ", " + email, Toast.LENGTH_LONG).show();
         }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference(Constants.KITTEN_ENTITY);
+        databaseReference = FirebaseDatabase.getInstance().getReference(Constants.KITTENS_REFERENCE);
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new DashboardFragment()).commit();
-    }
 
+        currentLanguage = Locale.getDefault().getLanguage();
+    }
 }

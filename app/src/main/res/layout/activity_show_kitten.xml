@@ -62,6 +62,7 @@
                     android:id="@+id/pvVideo"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
+                    android:visibility="invisible"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginRight="24dp"

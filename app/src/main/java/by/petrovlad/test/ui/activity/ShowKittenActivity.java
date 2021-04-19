@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -17,10 +18,12 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.text.TextOutput;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,7 +45,7 @@ public class ShowKittenActivity extends AppCompatActivity {
 
     private TableLayout tableLayout;
     private Button btnShowGallery;
-    private VideoView videoView;
+    private PlayerView playerView;
 
     private MediaController mediaController;
 
@@ -63,6 +66,8 @@ public class ShowKittenActivity extends AppCompatActivity {
     }
 
     private void init() {
+        playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
+
         btnShowGallery = findViewById(R.id.btnShowGallery);
         btnShowGallery.setOnClickListener(this::onClickShowGallery);
 
@@ -95,6 +100,8 @@ public class ShowKittenActivity extends AppCompatActivity {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> snapshotIterator = dataSnapshot.getChildren().iterator();
                 if (snapshotIterator.hasNext()) {
+                    playerView.setVisibility(View.VISIBLE);
+
                     DataSnapshot avatarSnapshot = snapshotIterator.next();
                     Upload upload = avatarSnapshot.getValue(Upload.class);
                     if (upload == null) {
@@ -104,6 +111,8 @@ public class ShowKittenActivity extends AppCompatActivity {
                     String videoUrl = upload.getImageUrl();
 
                     startVideoPlayer(videoUrl);
+                } else {
+                    playerView.setLayoutParams(new ConstraintLayout.LayoutParams(0, 0));
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -129,7 +138,6 @@ public class ShowKittenActivity extends AppCompatActivity {
         exoPlayer.prepare(mediaSource);
         exoPlayer.setPlayWhenReady(false);*/
 
-        PlayerView playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
         ExoPlayer exoPlayer = new SimpleExoPlayer.Builder(getApplicationContext()).build();
         playerView.setPlayer(exoPlayer);
 
@@ -138,6 +146,16 @@ public class ShowKittenActivity extends AppCompatActivity {
         exoPlayer.setPlayWhenReady(false);
         exoPlayer.seekTo(0, 0);
         exoPlayer.prepare();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (playerView.getPlayer() != null) {
+            playerView.getPlayer().stop();
+        }
     }
 
     private TableRow createRow(String key, String value) {

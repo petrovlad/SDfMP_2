@@ -21,7 +21,7 @@ import by.petrovlad.test.R;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText edSignInLogin, edSignInPassword;
+    private EditText edSignInEmail, edSignInPassword;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -32,13 +32,13 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void init() {
-        edSignInLogin = findViewById(R.id.edSignInLogin);
+        edSignInEmail = findViewById(R.id.edSignInEmail);
         edSignInPassword = findViewById(R.id.edSignInPassword);
 
-        String login = getIntent().getStringExtra(Constants.LOGIN_EXTRA);
+        String email = getIntent().getStringExtra(Constants.EMAIL_EXTRA);
         String password = getIntent().getStringExtra(Constants.PASSWORD_EXTRA);
-        if (!login.isEmpty()) {
-            edSignInLogin.setText(login);
+        if (!email.isEmpty()) {
+            edSignInEmail.setText(email);
         }
         if (!password.isEmpty()) {
             edSignInPassword.setText(password);
@@ -49,23 +49,22 @@ public class SignInActivity extends AppCompatActivity {
 
     public void onClickGoToSignUp(View view) {
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-        intent.putExtra(Constants.LOGIN_EXTRA, edSignInLogin.getText().toString().trim());
+        intent.putExtra(Constants.EMAIL_EXTRA, edSignInEmail.getText().toString().trim());
         intent.putExtra(Constants.PASSWORD_EXTRA, edSignInPassword.getText().toString().trim());
 
         startActivity(intent);
     }
 
     public void onClickSignIn(View view) {
-        String login = edSignInLogin.getText().toString().trim();
+        String email = edSignInEmail.getText().toString().trim();
         String password = edSignInPassword.getText().toString().trim();
 
-        if (login.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, R.string.toast_enter_values, Toast.LENGTH_LONG).show();
             return;
         }
 
-        String finalLogin = login + Constants.UPN_SUFFIX;
-        firebaseAuth.signInWithEmailAndPassword(finalLogin, password)
+        firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -84,9 +83,9 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    public void goToMainActivity(String extraLogin) {
+    public void goToMainActivity(String extraEmail) {
         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-        intent.putExtra(Constants.LOGIN_EXTRA, extraLogin);
+        intent.putExtra(Constants.EMAIL_EXTRA, extraEmail);
         startActivity(intent);
     }
 }
