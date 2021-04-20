@@ -2,6 +2,7 @@ package by.petrovlad.test.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,10 +37,12 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     private DatabaseReference databaseReference;
     private GridView gvKittens;
-    private ArrayAdapter<String> adapter;
     private List<String> names;
     private List<Kitten> kittens;
     private List<String> keys;
+
+    private TextAdapter textAdapter;
+    private SearchView searchView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +55,28 @@ public class DashboardFragment extends Fragment {
     }
 
     private void init(View view) {
+        searchView = view.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<String> newNames = new ArrayList<>();
+                for (String record : names) {
+                    if (record.contains(newText)) {
+                        newNames.add(record);
+                    }
+                }
+                textAdapter = new TextAdapter(getContext(), newNames);
+                gvKittens.setAdapter(textAdapter);
+                textAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+
         // init list, set adapter on it and apply this adapter for gridview
         gvKittens = view.findViewById(R.id.gvKittens);
         names = new ArrayList<>();
@@ -58,7 +84,7 @@ public class DashboardFragment extends Fragment {
         kittens = new ArrayList<>();
 
         //adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, names);
-        TextAdapter textAdapter = new TextAdapter(getContext(), names);
+        textAdapter = new TextAdapter(getContext(), names);
         gvKittens.setAdapter(textAdapter);
         // retrieve from firebase
         databaseReference = FirebaseDatabase.getInstance().getReference(Constants.KITTENS_REFERENCE);
@@ -76,7 +102,10 @@ public class DashboardFragment extends Fragment {
                         Log.w("DashboardFragment.init:", "'kitten' was null");
                         return;
                     }
-                    names.add(kitten.name + "\n" +  kitten.eyesColor +"\n" + kitten.height);
+                    names.add("Name: " + kitten.name + "\n"
+                            + "Eyes color: " + kitten.eyesColor + "\n"
+                            + "Tail length: " + kitten.tailLength + "\n"
+                            + "Height: " + kitten.height);
                     kittens.add(kitten);
                     keys.add(ds.getKey());
                 }

@@ -19,7 +19,8 @@
                 android:id="@+id/tvFontSize"
                 android:layout_weight="0.2"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="@string/font_size" />
 
             <Spinner
@@ -36,7 +37,8 @@
                 android:id="@+id/tvFontName"
                 android:layout_weight="0.2"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="@string/font_name" />
 
             <Spinner

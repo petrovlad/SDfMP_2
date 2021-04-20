@@ -30,7 +30,8 @@ public final class Constants {
     public static final String ENGLISH_LANGUAGE = "en";
     public static final String RUSSIAN_LANGUAGE = "ru";
     public static final String[] LANGUAGES = {"en", "ru"};
-
+    public static final Integer MARKER_CLICKED_TAG = 1;
+    public static final Integer MARKER_UNCLICKED_TAG = 0;
 
     private Constants() {
         throw new AssertionError();

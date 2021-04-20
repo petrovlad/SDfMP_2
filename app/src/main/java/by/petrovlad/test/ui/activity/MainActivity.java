@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+
         String email = getIntent().getStringExtra(Constants.EMAIL_EXTRA);
         if (email != null) {
             Toast.makeText(this, getString(R.string.toast_hello) + ", " + email, Toast.LENGTH_LONG).show();

@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -66,6 +68,8 @@ public class SettingsFragment extends Fragment {
     private FirebaseDatabase databaseInstance;
     private FirebaseAuth firebaseAuth;
 
+    private Typeface typeface;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         settingsViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
@@ -76,8 +80,11 @@ public class SettingsFragment extends Fragment {
     }
 
     private void init(View view) {
+        typeface = ResourcesCompat.getFont(getContext(), FontSettings.fontId);
+
         btnFontSettings = view.findViewById(R.id.btnFontSettings);
         btnFontSettings.setTextSize(FontSettings.fontSize);
+        btnFontSettings.setTypeface(typeface);
         btnFontSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +94,7 @@ public class SettingsFragment extends Fragment {
 
         btnChangeLanguage = view.findViewById(R.id.btnChangeLanguage);
         btnChangeLanguage.setTextSize(FontSettings.fontSize);
+        btnChangeLanguage.setTypeface(typeface);
         btnChangeLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +105,7 @@ public class SettingsFragment extends Fragment {
 
         btnUploadImage = view.findViewById(R.id.btnUploadImage);
         btnUploadImage.setTextSize(FontSettings.fontSize);
+        btnUploadImage.setTypeface(typeface);
         btnUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +115,7 @@ public class SettingsFragment extends Fragment {
 
         btnUploadVideo = view.findViewById(R.id.btnUploadVideo);
         btnUploadVideo.setTextSize(FontSettings.fontSize);
+        btnUploadVideo.setTypeface(typeface);
         btnUploadVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +125,7 @@ public class SettingsFragment extends Fragment {
 
         btnLogOut = view.findViewById(R.id.btnLogOut);
         btnLogOut.setTextSize(FontSettings.fontSize);
+        btnLogOut.setTypeface(typeface);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +136,7 @@ public class SettingsFragment extends Fragment {
 
         btnEditAccount = view.findViewById(R.id.btnEditAccount);
         btnEditAccount.setTextSize(FontSettings.fontSize);
+        btnEditAccount.setTypeface(typeface);
         btnEditAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +147,7 @@ public class SettingsFragment extends Fragment {
 
         btnEditLocation = view.findViewById(R.id.btnEditLocation);
         btnEditLocation.setTextSize(FontSettings.fontSize);
+        btnEditLocation.setTypeface(typeface);
         btnEditLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -50,10 +50,12 @@ public class ChangeFontActivity extends AppCompatActivity {
         spnFontNames = findViewById(R.id.spnFontNames);
 
         tvFontName = findViewById(R.id.tvFontName);
+        tvFontName.setTypeface(typeface);
 
         spnFontSizes = findViewById(R.id.spnFontSizes);
 
         tvFontSize = findViewById(R.id.tvFontSize);
+        tvFontSize.setTypeface(typeface);
 
         Resources res = getResources();
         //ArrayList<String> fontNames = getFontNames(res);
