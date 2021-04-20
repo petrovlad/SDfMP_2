@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Locale;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.ui.activity.ChangeFontActivity;
 import by.petrovlad.test.ui.activity.ChangeLanguageActivity;
 import by.petrovlad.test.ui.activity.EditAccountActivity;
 import by.petrovlad.test.R;
@@ -51,6 +52,7 @@ public class SettingsFragment extends Fragment {
     private Button btnEditAccount;
     private Button btnEditLocation;
     private Button btnChangeLanguage;
+    private Button btnFontSettings;
 
     private ProgressBar progressBar;
 
@@ -73,6 +75,14 @@ public class SettingsFragment extends Fragment {
     }
 
     private void init(View view) {
+        btnFontSettings = view.findViewById(R.id.btnFontSettings);
+        btnFontSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ChangeFontActivity.class));
+            }
+        });
+
         btnChangeLanguage = view.findViewById(R.id.btnChangeLanguage);
         btnChangeLanguage.setOnClickListener(new View.OnClickListener() {
             @Override

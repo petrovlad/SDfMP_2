@@ -16,12 +16,14 @@
     <string name="enter_height_hint">Enter height</string>
     <string name="enter_eyes_color_hint">Enter eyes color</string>
     <string name="button_sign_in">Sign in!</string>
+    <string name="font_name">Font name</string>
+    <string name="font_size">Font size</string>
     <string name="button_sign_up">Sign up!</string>
     <string name="button_log_out">Log out</string>
     <string name="button_show_gallery">Show all photos…</string>
     <string name="button_upload_image">Upload image</string>
     <string name="button_upload_video">Upload video</string>
-    <string name="button_delete_account">Delete account</string>
+    <string name="button_font_settings">Delete account</string>
     <string name="button_edit_account">Edit account</string>
     <string name="button_save_changes">Save changes</string>
     <string name="button_set_location">Set location</string>

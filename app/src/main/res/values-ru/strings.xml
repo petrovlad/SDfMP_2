@@ -8,6 +8,8 @@
     <string name="tail_length_hint">Введите длину хвоста</string>
     <string name="user_have_no_photos_hint">У этого кота еще нет фотографий…</string>
     <string name="button_submit">Отправить</string>
+    <string name="font_name">Название шрифта</string>
+    <string name="font_size">Размер шрифта</string>
     <string name="toast_enter_values">Введите все значения!</string>
     <string name="enter_password_hint">Введите пароль</string>
     <string name="enter_login_hint">Введите логин кота</string>
@@ -21,7 +23,7 @@
     <string name="button_show_gallery">Показать все фото…</string>
     <string name="button_upload_image">Загрузить фото</string>
     <string name="button_upload_video">Загрузить видео</string>
-    <string name="button_delete_account">Удалить аккаунт</string>
+    <string name="button_font_settings">Настройки шрифта</string>
     <string name="button_edit_account">Редактировать аккаунт</string>
     <string name="button_save_changes">Сохранить изменения</string>
     <string name="button_set_location">Сохранить местоположение</string>

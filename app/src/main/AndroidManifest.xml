@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.ChangeLanguageActivity"></activity>
+        <activity android:name=".ui.activity.ChangeFontActivity"></activity>
+        <activity android:name=".ui.activity.ChangeLanguageActivity" />
         <activity android:name=".ui.activity.SetLocationActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

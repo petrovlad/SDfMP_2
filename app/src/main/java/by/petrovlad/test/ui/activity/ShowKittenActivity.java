@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -14,7 +13,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,8 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.text.TextOutput;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.util.Util;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +41,8 @@ import by.petrovlad.test.Upload;
 
 public class ShowKittenActivity extends AppCompatActivity {
 
+    private ExoPlayer exoPlayer;
+
     private TableLayout tableLayout;
     private Button btnShowGallery;
     private PlayerView playerView;
@@ -53,9 +53,12 @@ public class ShowKittenActivity extends AppCompatActivity {
     private DatabaseReference databaseVideoReference;
 
 
-    private final TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+    private final TableRow.LayoutParams tableParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+    private TableRow.LayoutParams rowParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.4f);
 
     private ImageView ivTemp;
+
+    private String videoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class ShowKittenActivity extends AppCompatActivity {
     }
 
     private void init() {
+        rowParams.setMargins(10, 10, 10, 10);
+
         playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
 
         btnShowGallery = findViewById(R.id.btnShowGallery);
@@ -88,10 +93,6 @@ public class ShowKittenActivity extends AppCompatActivity {
         databaseImageReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_IMAGES_REFERENCE + "/" + uid);
         databaseVideoReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_VIDEOS_REFERENCE + "/" + uid);
         loadAvatar();
-
-        // load video
-        loadVideo();
-
     }
 
     private void loadVideo() {
@@ -108,9 +109,8 @@ public class ShowKittenActivity extends AppCompatActivity {
                         Log.w("ShwKittenActivity.init:", "'upload' was null");
                         return;
                     }
-                    String videoUrl = upload.getImageUrl();
-
-                    startVideoPlayer(videoUrl);
+                    videoUrl = upload.getImageUrl();
+                    initializePlayer();
                 } else {
                     playerView.setLayoutParams(new ConstraintLayout.LayoutParams(0, 0));
                 }
@@ -124,55 +124,75 @@ public class ShowKittenActivity extends AppCompatActivity {
         });
     }
 
-    private void startVideoPlayer(String uri) {
-/*        PlayerView playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter.Builder(getApplication()).build();
-        TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
-        SimpleExoPlayer exoPlayer = ExoPlayerFactory.newSimpleInstance(getApplication());
-        Uri videoUri = Uri.parse(uri);
-        DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("video");
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        MediaSource mediaSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);
-
-        playerView.setPlayer(exoPlayer);
-        exoPlayer.prepare(mediaSource);
-        exoPlayer.setPlayWhenReady(false);*/
-
-        ExoPlayer exoPlayer = new SimpleExoPlayer.Builder(getApplicationContext()).build();
+    private void initializePlayer() {
+        exoPlayer = new SimpleExoPlayer.Builder(getApplicationContext()).build();
         playerView.setPlayer(exoPlayer);
 
-        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(uri));
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(videoUrl));
         exoPlayer.setMediaItem(mediaItem);
         exoPlayer.setPlayWhenReady(false);
         exoPlayer.seekTo(0, 0);
         exoPlayer.prepare();
+    }
 
+    protected void releasePlayer() {
+        if (exoPlayer != null) {
+            exoPlayer.release();
+            exoPlayer = null;
+        }
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT > 23) {
+            loadVideo();
+            if (playerView != null) {
+                playerView.onResume();
+            }
+        }
+    }
 
-        if (playerView.getPlayer() != null) {
-            playerView.getPlayer().stop();
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            if (playerView != null) {
+                playerView.onPause();
+            }
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            if (playerView != null) {
+                playerView.onPause();
+            }
+            releasePlayer();
         }
     }
 
     private TableRow createRow(String key, String value) {
 
         TableRow tableRow = new TableRow(this);
-        tableRow.setLayoutParams(rowParams);
+        tableRow.setLayoutParams(tableParams);
+
 
         TextView keyText = new TextView(this);
         keyText.setText(key);
         keyText.setTextSize(18);
-        keyText.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.4f));
+        rowParams.weight = 0.4f;
+        keyText.setLayoutParams(rowParams);
         tableRow.addView(keyText);
 
         TextView valueText = new TextView(this);
         valueText.setText(value);
         //valueText.setTextSize(16);
-        valueText.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.6f));
+        rowParams.weight = 0.6f;
+        valueText.setLayoutParams(rowParams);
         valueText.setGravity(Gravity.CENTER_VERTICAL);
         tableRow.addView(valueText);
 
@@ -215,4 +235,8 @@ public class ShowKittenActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
 }
