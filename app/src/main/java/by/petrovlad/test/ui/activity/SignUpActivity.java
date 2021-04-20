@@ -2,12 +2,15 @@ package by.petrovlad.test.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.Kitten;
 import by.petrovlad.test.R;
 
@@ -26,6 +30,9 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edSignUpLogin, edSignUpPassword, edSignUpTail, edSignUpColor, edSignUpEmail, edSignUpHeight;
     private FirebaseDatabase database;
     private FirebaseAuth firebaseAuth;
+    private TextView txtGoToSignIn;
+
+    private Typeface typeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +42,35 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void init() {
+        typeface = ResourcesCompat.getFont(this, FontSettings.fontId);
+
         edSignUpLogin = findViewById(R.id.edSignUpLogin);
+        edSignUpLogin.setTextSize(FontSettings.fontSize);
+        edSignUpLogin.setTypeface(typeface);
+
         edSignUpPassword = findViewById(R.id.edSignUpPassword);
+        edSignUpPassword.setTextSize(FontSettings.fontSize);
+        edSignUpPassword.setTypeface(typeface);
+
         edSignUpTail = findViewById(R.id.edSignUpTail);
+        edSignUpTail.setTextSize(FontSettings.fontSize);
+        edSignUpTail.setTypeface(typeface);
+
         edSignUpColor = findViewById(R.id.edSignUpColor);
+        edSignUpColor.setTextSize(FontSettings.fontSize);
+        edSignUpColor.setTypeface(typeface);
+
         edSignUpEmail = findViewById(R.id.edSignUpEmail);
+        edSignUpEmail.setTextSize(FontSettings.fontSize);
+        edSignUpEmail.setTypeface(typeface);
+
         edSignUpHeight = findViewById(R.id.edSignUpHeight);
+        edSignUpHeight.setTextSize(FontSettings.fontSize);
+        edSignUpHeight.setTypeface(typeface);
+
+        txtGoToSignIn = findViewById(R.id.txtGoToSignIn);
+        txtGoToSignIn.setTextSize(FontSettings.fontSize);
+        txtGoToSignIn.setTypeface(typeface);
 
         String email = getIntent().getStringExtra(Constants.EMAIL_EXTRA);
         String password = getIntent().getStringExtra(Constants.PASSWORD_EXTRA);

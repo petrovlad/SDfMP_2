@@ -26,6 +26,7 @@
     <string name="button_font_settings">Font settings</string>
     <string name="button_edit_account">Edit account</string>
     <string name="button_save_changes">Save changes</string>
+    <string name="button_apply_changes">Apply</string>
     <string name="button_set_location">Set location</string>
     <string name="button_edit_location">Edit location</string>
     <string name="button_change_language">Change language</string>

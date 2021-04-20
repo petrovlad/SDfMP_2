@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Locale;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.ui.activity.ChangeFontActivity;
 import by.petrovlad.test.ui.activity.ChangeLanguageActivity;
 import by.petrovlad.test.ui.activity.EditAccountActivity;
@@ -76,6 +77,7 @@ public class SettingsFragment extends Fragment {
 
     private void init(View view) {
         btnFontSettings = view.findViewById(R.id.btnFontSettings);
+        btnFontSettings.setTextSize(FontSettings.fontSize);
         btnFontSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +86,7 @@ public class SettingsFragment extends Fragment {
         });
 
         btnChangeLanguage = view.findViewById(R.id.btnChangeLanguage);
+        btnChangeLanguage.setTextSize(FontSettings.fontSize);
         btnChangeLanguage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +96,7 @@ public class SettingsFragment extends Fragment {
         });
 
         btnUploadImage = view.findViewById(R.id.btnUploadImage);
+        btnUploadImage.setTextSize(FontSettings.fontSize);
         btnUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +105,7 @@ public class SettingsFragment extends Fragment {
         });
 
         btnUploadVideo = view.findViewById(R.id.btnUploadVideo);
+        btnUploadVideo.setTextSize(FontSettings.fontSize);
         btnUploadVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +114,7 @@ public class SettingsFragment extends Fragment {
         });
 
         btnLogOut = view.findViewById(R.id.btnLogOut);
+        btnLogOut.setTextSize(FontSettings.fontSize);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +124,7 @@ public class SettingsFragment extends Fragment {
         });
 
         btnEditAccount = view.findViewById(R.id.btnEditAccount);
+        btnEditAccount.setTextSize(FontSettings.fontSize);
         btnEditAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +134,7 @@ public class SettingsFragment extends Fragment {
         });
 
         btnEditLocation = view.findViewById(R.id.btnEditLocation);
+        btnEditLocation.setTextSize(FontSettings.fontSize);
         btnEditLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +195,8 @@ public class SettingsFragment extends Fragment {
             }
 
             progressBar.setVisibility(View.VISIBLE);
+            btnUploadVideo.setEnabled(false);
+            btnUploadImage.setEnabled(false);
 
             long currTime = System.currentTimeMillis();
             StorageReference file = storageInstance.getReference(referencePath)
@@ -203,6 +213,8 @@ public class SettingsFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     progressBar.setVisibility(View.INVISIBLE);
+                    btnUploadVideo.setEnabled(true);
+                    btnUploadImage.setEnabled(true);
 
                     if (task.isSuccessful()) {
                         Toast.makeText(SettingsFragment.this.getActivity(), R.string.toast_file_uploaded, Toast.LENGTH_SHORT).show();

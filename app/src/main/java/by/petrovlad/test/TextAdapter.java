@@ -7,33 +7,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import by.petrovlad.test.R;
-import by.petrovlad.test.Upload;
-
-public class PhotosAdapter extends BaseAdapter {
+public class TextAdapter extends BaseAdapter {
     private Context context;
-    private List<Upload> uploads;
+    private List<String> strings;
     private LayoutInflater inflater;
-
     private Typeface typeface;
 
-    public PhotosAdapter(Context c, List<Upload> uploads) {
+    public TextAdapter(Context c, List<String> strings) {
         this.context = c;
-        this.uploads = uploads;
+        this.strings = strings;
         inflater = LayoutInflater.from(c);
     }
 
     @Override
     public int getCount() {
-        return uploads.size();
+        return strings.size();
     }
 
     @Override
@@ -50,16 +48,16 @@ public class PhotosAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         typeface = ResourcesCompat.getFont(context, FontSettings.fontId);
 
-        view = inflater.inflate(R.layout.photo_grid_item, null);
+        view = inflater.inflate(R.layout.text_grid_item, null);
 
-        ImageView imageView = view.findViewById(R.id.ivPhoto);
-        TextView textView = view.findViewById(R.id.tvPhotoTitle);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(FontSettings.fontSize, FontSettings.fontSize, FontSettings.fontSize, FontSettings.fontSize);
+
+        TextView textView = view.findViewById(R.id.tvGridItem);
         textView.setTextSize(FontSettings.fontSize);
         textView.setTypeface(typeface);
-
-        Picasso.get().load(uploads.get(position).getImageUrl()).placeholder(R.drawable.default_avatar).into(imageView);
-        textView.setText(uploads.get(position).getName());
-
+        textView.setLayoutParams(layoutParams);
+        textView.setText(strings.get(position));
         return view;
     }
 }

@@ -2,12 +2,15 @@ package by.petrovlad.test.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,12 +20,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.R;
 
 public class SignInActivity extends AppCompatActivity {
 
     private EditText edSignInEmail, edSignInPassword;
     private FirebaseAuth firebaseAuth;
+    private TextView txtGoToSignUp;
+
+    private Typeface typeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +39,19 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void init() {
+        typeface = ResourcesCompat.getFont(this, FontSettings.fontId);
+
         edSignInEmail = findViewById(R.id.edSignInEmail);
+        edSignInEmail.setTextSize(FontSettings.fontSize);
+        edSignInEmail.setTypeface(typeface);
+
         edSignInPassword = findViewById(R.id.edSignInPassword);
+        edSignInPassword.setTextSize(FontSettings.fontSize);
+        edSignInPassword.setTypeface(typeface);
+
+        txtGoToSignUp = findViewById(R.id.txtGoToSignUp);
+        txtGoToSignUp.setTextSize(FontSettings.fontSize);
+        txtGoToSignUp.setTypeface(typeface);
 
         String email = getIntent().getStringExtra(Constants.EMAIL_EXTRA);
         String password = getIntent().getStringExtra(Constants.PASSWORD_EXTRA);

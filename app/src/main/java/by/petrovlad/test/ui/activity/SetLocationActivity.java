@@ -2,7 +2,9 @@ package by.petrovlad.test.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,19 +23,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.KittenLocation;
 import by.petrovlad.test.R;
 
 public class SetLocationActivity extends AppCompatActivity implements OnMapReadyCallback{
     private Marker marker;
     private Button btnSetLocation;
+    private Typeface typeface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_location);
 
+        typeface = ResourcesCompat.getFont(this, FontSettings.fontId);
+
         btnSetLocation = findViewById(R.id.btnSetLocation);
         btnSetLocation.setEnabled(false);
+        btnSetLocation.setTextSize(FontSettings.fontSize);
+        btnSetLocation.setTypeface(typeface);
 
         SupportMapFragment mapSetLocation = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapSetLocation);
         mapSetLocation.getMapAsync(this);

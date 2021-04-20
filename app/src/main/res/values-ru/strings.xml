@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Kittens App</string>
-    <string name="title_dashboard">Дашборт</string>
+    <string name="title_dashboard">Главная</string>
     <string name="title_map">Карта</string>
     <string name="title_settings">Настройки</string>
     <string name="first_name_hint">Введите имя</string>
@@ -26,6 +26,7 @@
     <string name="button_font_settings">Настройки шрифта</string>
     <string name="button_edit_account">Редактировать аккаунт</string>
     <string name="button_save_changes">Сохранить изменения</string>
+    <string name="button_apply_changes">Применить</string>
     <string name="button_set_location">Сохранить местоположение</string>
     <string name="button_edit_location">Редактировать местоположение</string>
     <string name="button_change_language">Сменить язык</string>

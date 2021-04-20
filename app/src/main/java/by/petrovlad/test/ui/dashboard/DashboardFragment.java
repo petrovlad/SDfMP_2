@@ -27,6 +27,7 @@ import java.util.List;
 import by.petrovlad.test.Constants;
 import by.petrovlad.test.Kitten;
 import by.petrovlad.test.R;
+import by.petrovlad.test.TextAdapter;
 import by.petrovlad.test.ui.activity.ShowKittenActivity;
 
 public class DashboardFragment extends Fragment {
@@ -56,8 +57,9 @@ public class DashboardFragment extends Fragment {
         keys = new ArrayList<>();
         kittens = new ArrayList<>();
 
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, names);
-        gvKittens.setAdapter(adapter);
+        //adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, names);
+        TextAdapter textAdapter = new TextAdapter(getContext(), names);
+        gvKittens.setAdapter(textAdapter);
         // retrieve from firebase
         databaseReference = FirebaseDatabase.getInstance().getReference(Constants.KITTENS_REFERENCE);
         // set listener for realtime update
@@ -74,11 +76,11 @@ public class DashboardFragment extends Fragment {
                         Log.w("DashboardFragment.init:", "'kitten' was null");
                         return;
                     }
-                    names.add(kitten.name);
+                    names.add(kitten.name + "\n" +  kitten.eyesColor +"\n" + kitten.height);
                     kittens.add(kitten);
                     keys.add(ds.getKey());
                 }
-                adapter.notifyDataSetChanged();
+                textAdapter.notifyDataSetChanged();
             }
 
             @Override

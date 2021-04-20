@@ -1,6 +1,7 @@
 package by.petrovlad.test.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -36,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.R;
 import by.petrovlad.test.Upload;
 
@@ -52,6 +55,7 @@ public class ShowKittenActivity extends AppCompatActivity {
     private DatabaseReference databaseImageReference;
     private DatabaseReference databaseVideoReference;
 
+    private Typeface typeface;
 
     private final TableRow.LayoutParams tableParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
     private TableRow.LayoutParams rowParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0.4f);
@@ -69,12 +73,16 @@ public class ShowKittenActivity extends AppCompatActivity {
     }
 
     private void init() {
+        typeface = ResourcesCompat.getFont(this, FontSettings.fontId);
+
         rowParams.setMargins(10, 10, 10, 10);
 
         playerView = ShowKittenActivity.this.findViewById(R.id.pvVideo);
 
         btnShowGallery = findViewById(R.id.btnShowGallery);
         btnShowGallery.setOnClickListener(this::onClickShowGallery);
+        btnShowGallery.setTextSize(FontSettings.fontSize);
+        btnShowGallery.setTypeface(typeface);
 
         tableLayout = findViewById(R.id.tlShowKitten);
 
@@ -183,14 +191,16 @@ public class ShowKittenActivity extends AppCompatActivity {
 
         TextView keyText = new TextView(this);
         keyText.setText(key);
-        keyText.setTextSize(18);
+        keyText.setTextSize(FontSettings.fontSize);
+        keyText.setTypeface(typeface);
         rowParams.weight = 0.4f;
         keyText.setLayoutParams(rowParams);
         tableRow.addView(keyText);
 
         TextView valueText = new TextView(this);
         valueText.setText(value);
-        //valueText.setTextSize(16);
+        valueText.setTextSize(FontSettings.fontSize - 2);
+        valueText.setTypeface(typeface);
         rowParams.weight = 0.6f;
         valueText.setLayoutParams(rowParams);
         valueText.setGravity(Gravity.CENTER_VERTICAL);

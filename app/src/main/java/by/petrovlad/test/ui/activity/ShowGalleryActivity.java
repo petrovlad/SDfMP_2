@@ -2,8 +2,10 @@ package by.petrovlad.test.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.PhotosAdapter;
 import by.petrovlad.test.R;
 import by.petrovlad.test.Upload;
@@ -43,6 +46,7 @@ public class ShowGalleryActivity extends AppCompatActivity {
     }
 
     private void init() {
+
         String uid = getIntent().getExtras().getString(Constants.UID_EXTRA);
         databaseReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_IMAGES_REFERENCE + "/" + uid);
 
@@ -83,7 +87,7 @@ public class ShowGalleryActivity extends AppCompatActivity {
                 }
                 if (uploads.isEmpty()) {
                     TextView tvUserHaveNoPhotos = ShowGalleryActivity.this.findViewById(R.id.tvUserHaveNoPhotos);
-                    tvUserHaveNoPhotos.setTextSize(18);
+                    tvUserHaveNoPhotos.setTextSize(FontSettings.fontSize);
                     tvUserHaveNoPhotos.setText(R.string.user_have_no_photos_hint);
                 }
                 adapter.notifyDataSetChanged();

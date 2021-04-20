@@ -2,7 +2,9 @@ package by.petrovlad.test.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import by.petrovlad.test.Constants;
+import by.petrovlad.test.FontSettings;
 import by.petrovlad.test.Kitten;
 import by.petrovlad.test.R;
 
@@ -39,6 +42,8 @@ public class EditAccountActivity extends AppCompatActivity {
     private String currentLogin;
     private String currentUid;
 
+    private Typeface typeface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,19 +53,43 @@ public class EditAccountActivity extends AppCompatActivity {
     }
 
     private void init() {
+        typeface = ResourcesCompat.getFont(this, FontSettings.fontId);
+
         tlEditKitten = findViewById(R.id.tlEditKitten);
 
         ArrayList<String> headers = new ArrayList<>();
 
         tvKittenName = findViewById(R.id.tvKittenName);
+        tvKittenName.setTextSize(FontSettings.fontSize);
+        tvKittenName.setTypeface(typeface);
+
         tvKittenEyes = findViewById(R.id.tvKittenEyes);
+        tvKittenEyes.setTextSize(FontSettings.fontSize);
+        tvKittenEyes.setTypeface(typeface);
+
         tvKittenHeight = findViewById(R.id.tvKittenHeight);
+        tvKittenHeight.setTextSize(FontSettings.fontSize);
+        tvKittenHeight.setTypeface(typeface);
+
         tvKittenTail = findViewById(R.id.tvKittenTail);
+        tvKittenTail.setTextSize(FontSettings.fontSize);
+        tvKittenTail.setTypeface(typeface);
 
         etKittenName = findViewById(R.id.etKittenName);
+        etKittenName.setTextSize(FontSettings.fontSize);
+        etKittenName.setTypeface(typeface);
+
         etKittenEyes = findViewById(R.id.etKittenEyes);
+        etKittenEyes.setTextSize(FontSettings.fontSize);
+        etKittenEyes.setTypeface(typeface);
+
         etKittenHeight = findViewById(R.id.etKittenHeight);
+        etKittenHeight.setTextSize(FontSettings.fontSize);
+        etKittenHeight.setTypeface(typeface);
+
         etKittenTail = findViewById(R.id.etKittenTail);
+        etKittenTail.setTextSize(FontSettings.fontSize);
+        etKittenTail.setTypeface(typeface);
 
         String nameHeader = getString(R.string.kitten_name);
         String eyesHeader = getString(R.string.kitten_eyes_color);
@@ -68,6 +97,8 @@ public class EditAccountActivity extends AppCompatActivity {
         String heightHeader = getString(R.string.kitten_height);
 
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        btnSaveChanges.setTextSize(FontSettings.fontSize);
+        btnSaveChanges.setTypeface(typeface);
         btnSaveChanges.setOnClickListener(EditAccountActivity.this::OnClickSaveChanges);
 
         currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
