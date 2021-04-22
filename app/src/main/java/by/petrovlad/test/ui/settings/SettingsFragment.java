@@ -145,17 +145,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        btnEditLocation = view.findViewById(R.id.btnEditLocation);
-        btnEditLocation.setTextSize(FontSettings.fontSize);
-        btnEditLocation.setTypeface(typeface);
-        btnEditLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SetLocationActivity.class);
-                startActivity(intent);
-            }
-        });
-
         progressBar = view.findViewById(R.id.pgLoading);
         progressBar.setVisibility(View.INVISIBLE);
 

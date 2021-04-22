@@ -103,11 +103,25 @@
             android:layout_height="match_parent" >
 
             <Button
+                android:id="@+id/btnEditLocation"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/button_edit_location" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
                 android:id="@+id/btnSaveChanges"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/button_save_changes" />
         </TableRow>
+
+
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

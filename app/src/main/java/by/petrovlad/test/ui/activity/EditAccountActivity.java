@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class EditAccountActivity extends AppCompatActivity {
     private TextView tvKittenName, tvKittenEyes, tvKittenHeight, tvKittenTail;
     private EditText etKittenName, etKittenEyes, etKittenHeight, etKittenTail;
     private Button btnSaveChanges;
+    private Button btnEditLocation;
     private final TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
 
@@ -120,6 +122,17 @@ public class EditAccountActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btnEditLocation = findViewById(R.id.btnEditLocation);
+        btnEditLocation.setTextSize(FontSettings.fontSize);
+        btnEditLocation.setTypeface(typeface);
+        btnEditLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditAccountActivity.this, SetLocationActivity.class);
+                startActivity(intent);
             }
         });
 
