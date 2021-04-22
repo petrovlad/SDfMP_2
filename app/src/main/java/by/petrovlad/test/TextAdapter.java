@@ -24,6 +24,13 @@ public class TextAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Typeface typeface;
 
+    public List<Kitten> getKittens() {
+        return kittens;
+    }
+
+    public void setKittens(List<Kitten> kittens) {
+        this.kittens = kittens;
+    }
 
     public TextAdapter(Context c, List<Kitten> kittens) {
         this.context = c;

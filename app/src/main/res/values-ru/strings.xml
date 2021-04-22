@@ -47,4 +47,6 @@
     <string name="kitten_eyes_color">Цвет глаз</string>
     <string name="kitten_height">Высота кота</string>
     <string name="title_activity_set_location">Карта</string>
+    <string name="spinner_lower_than">Меньше чем</string>
+    <string name="spinner_greater_than">Больше чем</string>
 </resources>

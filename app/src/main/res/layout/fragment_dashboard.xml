@@ -6,23 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gvKittens"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Button" />
+        </TableRow>
+
+    </TableLayout>
+
+
+    <SearchView
+        android:id="@+id/svName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back"
+        android:queryHint="@string/kitten_name"
+        app:layout_constraintBottom_toTopOf="@id/svColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <SearchView
+        android:id="@+id/svColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="@string/kitten_eyes_color"
+        android:background="@drawable/back"
+        app:layout_constraintBottom_toTopOf="@id/svTailLength"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svName" />
+
+
+    <SearchView
+        android:id="@+id/svTailLength"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:queryHint="@string/kitten_tail_length"
+        android:background="@drawable/back"
+        android:inputType="number"
+        app:layout_constraintHorizontal_weight="0.7"
+        app:layout_constraintBottom_toTopOf="@id/gvKittens"
+        app:layout_constraintEnd_toStartOf="@id/spnTailLength"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/svColor" />
+
+    <Spinner
+        android:id="@+id/spnTailLength"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back"
+        app:layout_constraintHorizontal_weight="0.3"
+        app:layout_constraintBottom_toTopOf="@id/gvKittens"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/svTailLength"
+        app:layout_constraintTop_toBottomOf="@+id/svColor"
+        tools:layout_editor_absoluteY="144dp" />
 
     <GridView
         android:id="@+id/gvKittens"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:numColumns="auto_fit"
-        app:layout_constraintTop_toBottomOf="@id/searchView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svTailLength">
+
+    </GridView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

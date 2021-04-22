@@ -47,4 +47,6 @@
     <string name="kitten_eyes_color">Eyes color</string>
     <string name="kitten_height">Height</string>
     <string name="title_activity_set_location">Map</string>
+    <string name="spinner_lower_than">Lower</string>
+    <string name="spinner_greater_than">Greater</string>
 </resources>

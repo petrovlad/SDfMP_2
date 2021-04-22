@@ -2,8 +2,6 @@ package by.petrovlad.test;
 
 import com.google.maps.android.geometry.Point;
 
-import java.util.ArrayList;
-
 public final class Constants {
     public static final String KITTENS_REFERENCE = "Kittens";
     public static final String KITTEN_LOCATIONS_REFERENCE = "kitten_locations";
